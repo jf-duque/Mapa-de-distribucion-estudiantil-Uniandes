@@ -1,0 +1,8 @@
+{
+    "edificios":[
+        {"id": "ml", "nombre": "Mario Laserna","rutaImgEdificio":"./svgEdificios/ML.html"},
+        {"id": "sd", "nombre": "Julio Mario Santo Domingo","rutaImgEdificio":"./svgEdificios/SD.html"},
+        {"id": "c", "nombre": "Bloque C","rutaImgEdificio":"./svgEdificios/C.html"}
+
+    ]
+}

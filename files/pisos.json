@@ -1,0 +1,34 @@
+{
+    "pisos":[
+        {"id": "ml_s2", "nombre": "ML Piso S2", "rutaImgPiso":"./svgPisosML/ml_s2.html"},
+        {"id": "ml_s1", "nombre": "ML Piso S1", "rutaImgPiso":"./svgPisosML/ml_s1.html"},
+        {"id": "ml_1", "nombre": "ML Piso 1", "rutaImgPiso":"./svgPisosML/ml_1.html"},
+        {"id": "ml_2", "nombre": "ML Piso 2", "rutaImgPiso":"./svgPisosML/ml_2.html"},
+        {"id": "ml_3", "nombre": "ML Piso 3", "rutaImgPiso":"./svgPisosML/ml_3.html"},
+        {"id": "ml_4", "nombre": "ML Piso 4", "rutaImgPiso":"./svgPisosML/ml_4.html"},
+        {"id": "ml_5", "nombre": "ML Piso 5", "rutaImgPiso":"./svgPisosML/ml_5.html"},
+        {"id": "ml_6", "nombre": "ML Piso 6", "rutaImgPiso":"./svgPisosML/ml_6.html"},
+        {"id": "ml_7", "nombre": "ML Piso 7", "rutaImgPiso":"./svgPisosML/ml_7.html"},
+        {"id": "ml_8", "nombre": "ML Piso 8", "rutaImgPiso":"./svgPisosML/ml_8.html"},
+
+        {"id": "sd_1", "nombre": "SD Piso 1", "rutaImgPiso":"./svgPisosSD/sd_1.html"},
+        {"id": "sd_2", "nombre": "SD Piso 2", "rutaImgPiso":"./svgPisosSD/sd_2.html"},
+        {"id": "sd_3", "nombre": "SD Piso 3", "rutaImgPiso":"./svgPisosSD/sd_3.html"},
+        {"id": "sd_4", "nombre": "SD Piso 4", "rutaImgPiso":"./svgPisosSD/sd_4.html"},
+        {"id": "sd_5", "nombre": "SD Piso 5", "rutaImgPiso":"./svgPisosSD/sd_5.html"},
+        {"id": "sd_6", "nombre": "SD Piso 6", "rutaImgPiso":"./svgPisosSD/sd_6.html"},
+        {"id": "sd_7", "nombre": "SD Piso 7", "rutaImgPiso":"./svgPisosSD/sd_7.html"},
+        {"id": "sd_8", "nombre": "SD Piso 8", "rutaImgPiso":"./svgPisosSD/sd_8.html"},
+        {"id": "sd_9", "nombre": "SD Piso 9", "rutaImgPiso":"./svgPisosSD/sd_9.html"},
+        {"id": "sd_10", "nombre": "SD Piso 10", "rutaImgPiso":"./svgPisosSD/sd_10.html"},
+
+        {"id": "c_1", "nombre": "C Piso 1", "rutaImgPiso":"./svgPisosC/c_1.html"},
+        {"id": "c_2", "nombre": "C Piso 2", "rutaImgPiso":"./svgPisosC/c_2.html"},
+        {"id": "c_3", "nombre": "C Piso 3", "rutaImgPiso":"./svgPisosC/c_3.html"},
+        {"id": "c_4", "nombre": "C Piso 4", "rutaImgPiso":"./svgPisosC/c_4.html"},
+        {"id": "c_5", "nombre": "C Piso 5", "rutaImgPiso":"./svgPisosC/c_5.html"},
+        {"id": "c_6", "nombre": "C Piso 6", "rutaImgPiso":"./svgPisosC/c_6.html"},
+        {"id": "c_7", "nombre": "C Piso 7", "rutaImgPiso":"./svgPisosC/c_7.html"}
+
+    ]
+}

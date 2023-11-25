@@ -1,0 +1,17 @@
+{
+    "salones":[
+        {"nombre": "ml_501", "rutaImgSalon":"./svgSalones/ml_501.html", "ocupa": "true"},
+        {"nombre": "ml_505", "rutaImgSalon":"./svgSalones/ml_505.html"},
+        {"nombre": "ml_507", "rutaImgSalon":"./svgSalones/ml_507.html"},
+        {"nombre": "ml_508", "rutaImgSalon":"./svgSalones/ml_508.html"},
+        {"nombre": "ml_509", "rutaImgSalon":"./svgSalones/ml_509.html"},
+        {"nombre": "ml_510", "rutaImgSalon":"./svgSalones/ml_510.html"},
+        {"nombre": "ml_511", "rutaImgSalon":"./svgSalones/ml_511.html"},
+        {"nombre": "ml_512", "rutaImgSalon":"./imgSalones/ml_512.jpg"},
+        {"nombre": "ml_513", "rutaImgSalon":"./svgSalones/ml_513.html"},
+        {"nombre": "ml_514", "rutaImgSalon":"./imgSalones/ml_514.jpg"},
+        {"nombre": "ml_515", "rutaImgSalon":"./imgSalones/ml_515.jpg"},
+        {"nombre": "ml_516", "rutaImgSalon":"./svgSalones/ml_516.html"},
+        {"nombre": "", "rutaImgSalon":""}
+    ]
+}

@@ -12,13 +12,13 @@
                         "day":"monday",
                         "classroom":"ml_614",
                         "startTime":"08:00",
-                        "finishTime":"23:59"
+                        "finishTime":"9:50"
                     },
                     {
                         "day":"monday",
                         "classroom":"ml_513",
                         "startTime":"08:00",
-                        "finishTime":"23:59"
+                        "finishTime":"9:50"
                     }
                 ]
             },
@@ -31,13 +31,13 @@
                         "day":"monday",
                         "classroom":"c_309",
                         "startTime":"08:00",
-                        "finishTime":"23:59"
+                        "finishTime":"9:50"
                     },
                     {
                         "day":"monday",
                         "classroom":"ml_616",
                         "startTime":"08:30",
-                        "finishTime":"23:59"
+                        "finishTime":"9:50"
                     }
                 ]
             },
@@ -173,10 +173,10 @@
                 "enrolled":27,
                 "sessions":[
                     {
-                        "day":"saturday",
+                        "day":"thursday",
                         "classroom":"ml_516",
-                        "startTime":"10:00",
-                        "finishTime":"12:50"
+                        "startTime":"12:30",
+                        "finishTime":"14:50"
                     }
                 ]
             }
@@ -232,7 +232,7 @@
                         "day":"thursday",
                         "classroom":"sd_401",
                         "startTime":"12:30",
-                        "finishTime":"13:50"
+                        "finishTime":"14v:50"
                     }
                 ]
             }

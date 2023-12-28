@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="back.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         .titleText{
@@ -40,28 +41,14 @@
 		    padding: 10px;
 		    font-size: 16px;
 		}
-        /* Contenedor con scroll */
-        .contenedor-scroll {
-        padding: 5px;
-        max-height: 450px;
-        overflow-y: auto;
-        scrollbar-width: thin; /* Para navegadores Firefox */
-        scrollbar-color: #dcdcdc #f5f5f5; /* Color del scrollbar */
-        }
 
-        /* Estilo específico para navegadores WebKit (Chrome, Safari) */
-        .contenedor-scroll::-webkit-scrollbar {
-        width: 5px;
-        }
-
-        .contenedor-scroll::-webkit-scrollbar-thumb {
-        background-color: #dcdcdc; /* Color del thumb */
-        border-radius: 7px;
-        }
-
-        .contenedor-scroll::-webkit-scrollbar-track {
-        background-color: #343A40; /* Color del track */
-        border-radius: 6px;
+        .box{
+            flex: 0 0 50%; 
+            display: none; 
+            flex-direction: column; 
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -71,8 +58,8 @@
     <!-- Jumbotron  -->
 
     <div class="container-fluid p-5 text-black text-center" style="background-color: #FFF200;">
-        <h1 class="titleText">Mapa Uniandes</h1>
-        <p class="titleText">Distribucion de estudiantes en el campus y ocupacion de salones!</p> 
+        <h1 class="titleText">Mapa de Distribución Uniandes</h1>
+        <p class="titleText">En este mapa de la Universidad de los Andes puedes encontrar la distribucion de los estudiantes a través de los edificios, los pisos y los salones en forma de mapa de calor!</p> 
     </div>
 
     <!-- FilterBar  -->
@@ -95,74 +82,95 @@
 
     <!-- Content Div  -->
 
-    <div style="padding: 2%;">
+    <div style="padding: 2%; padding-left: 0%;">
 
         <div class="row">
-            <div class="col-2" style="display: flex; flex-direction: column; align-items: center;">
-                <div style="position:sticky; top: 83px; display: flex; flex-direction: column; align-items: center; background-color: #343A40;
-                            padding: 10px; color: white; border-radius: 5px;">
-                    <h4 id="">Informacion:</h4>
-                    <p style="margin-bottom: 0%; margin-top: 16px;">Cant. Estudiantes</p>
+            <div class="col-2" style="display: flex; flex-direction: column; align-items: left;">
+                <div style="position:sticky; top: 7px; display: flex; flex-direction: column; align-items: center; background-color: #343A40;
+                            padding: 10px; color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px; margin-right: 10px;">
+                    <p style="margin-bottom: 0%">Cant. Estudiantes</p>
                     <div class="leyenda">
-                        <div class="color-bar" style="background: linear-gradient(to right, #ffff00, #ff0000); border-radius: 5px;"></div>
+                        <div class="color-bar" style="background: linear-gradient(to right, #ffff00, #ff0000); border-radius: 5px;">
+                        
+                        </div>
                     </div>
                     <div class="row" style="width: 100%; ">
-                        <div class="col-sm-4" style="text-align: left;">0%</div>
-                        <div class="col-sm-4" style="text-align: center;">50%</div>
-                        <div class="col-sm-4" style="text-align: right;">100%</div>
+                        <div class="col-sm-4" style="text-align: left; padding: 0px;">0%</div>
+                        <div class="col-sm-4" style="text-align: center; padding: 0px;">50%</div>
+                        <div class="col-sm-4" style="text-align: right; padding: 0px;">100%</div>
                     </div>
-
-                    <div style="width: 100%;" class="contenedor-scroll">
-                        <div id="divDatosU" style="text-align: left; background-color: #dcdcdc; width: 100%; padding: 10px; 
-                        border-radius: 5px; margin-top: 7px; color: black;"></div>
-
-                        <div id="divDatosE" style="text-align: left; background-color: #dcdcdc; width: 100%; padding: 10px; 
-                        border-radius: 5px; margin-top: 7px; color: black;"></div>
-
-                        <div id="divDatosP" style="text-align: left; background-color: #dcdcdc; width: 100%; padding: 10px; 
-                        border-radius: 5px; margin-top: 7px; color: black;"></div>
-                    </div>
-
                 </div>
             </div>
-            <div class="col-10">
-                <div class="row">
-                    <div class="col-6" style="display: flex; flex-direction: column; align-items: center;">
-                        <h4>Vista general del campus</h4>
-                        <!-- <div id="mapaContainer" ></div> -->
-                        <iframe id="imagenUniversidad" src="./svgUniversidad/universidad.html" width="76%" height="500"></iframe>
+                
+            <div class="col-10 containerVis" id="containerVis" style="display: flex; overflow-x: auto; white-space: nowrap; border-radius: 5px; background-color: #dcdcdc;">
+                <!-- div universidad -->
+                <div style="flex: 0 0 50%; display: flex; flex-direction: column; align-items: center; margin-top: 20px; margin-bottom: 10px;">
+                    <h4>Vista general del campus</h4>
+                    <iframe id="imagenUniversidad" src="./svgUniversidad/universidad.html" width="76%" height="475"></iframe>
+                    <p>Haz click sobre un edificio</p>
+
+                </div>
+                <!-- div edificio -->
+                <div class="box" id="divEdificio">
+                    <h4 id="nombreEdificio"></h4>
+                    <iframe id="imagenEdificio" src="" width="100%" height="475"></iframe>
+                    <p>Haz click sobre un piso</p>
+
+                </div>
+                <!-- div piso -->
+                <div class="box" id="divPiso">
+                    <h4 id="nombrePiso"></h4>
+                    <iframe id="imagenPiso" src="" width="76%" height="475"></iframe>
+                    <p>Haz click sobre un salon</p>
+
+                </div>
+                <!-- div info salon -->
+                <div class="box" id="divSalon">
+                    <h4 id="nombreSalon" style="margin-bottom: 16px;"></h4>
+                    <div id="divNoInfoSalon" style=" width: 80%; height: 435.2px; display: none; flex-direction: column; align-items: center;">
+                        <h3>
+                            Este salón esta solo y triste como tú :/
+                        </h3>
+                        <hr>
+                        <hr>
+                        <div id="game" style="display: flex; flex-direction: column; align-items: center;">
+                            <h5>Piedra, Papel o Tijeras?</h5>
+                            <div id="options">
+                                <button class="buttonPPT" onclick="play('piedra')">🗿</button>
+                                <button class="buttonPPT" onclick="play('papel')">📄</button>
+                                <button class="buttonPPT" onclick="play('tijeras')">✂</button>
+                            </div>
+                            <div id="result"></div>
+                        </div>
                     </div>
-                    <div class="col-6" id="divSVG"  style="display: flex; flex-direction: column; align-items: center;">
-                        <h4 id="nombreEdificio"></h4>
-                        <iframe id="imagenEdificio" src="" width="100%" height="500"></iframe>
+                    <div id="divInfoSalon" style="background-color: #dcdcdc; width: 100%; height: 435.2px; display: none; flex-direction: column; padding: 30px; border-radius: 5px;">
+                        <!-- ... (contenido del divInfoSalon) ... -->
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6" style="display: flex; flex-direction: column; align-items: center;">
-                        <h4 id="nombrePiso"></h4>
-                        <iframe id="imagenPiso" src="" width="76%" height="500"></iframe>
-                    </div>
-                    <div class="col-6" style="display: flex; flex-direction: column; align-items: center;">
-                        <h4 id="nombreSalon" style="margin-bottom: 16px;"></h4>
-                        <div id="divNoInfoSalon" style=" width: 100%; height: 435.2px; display: none; flex-direction: column; align-items: center;">
-                            <h1>
-                                Este salón esta solo y triste como tú :/
-                            </h1>
-                            <hr>
-                            <hr>
-                            <div id="game" style="display: flex; flex-direction: column; align-items: center;">
-                                <h5>Piedra, Papel o Tijeras?</h5>
-                                <div id="options">
-                                    <button class="buttonPPT" onclick="play('piedra')">🗿</button>
-                                    <button class="buttonPPT" onclick="play('papel')">📄</button>
-                                    <button class="buttonPPT" onclick="play('tijeras')">✂</button>
-                                </div>
-                                <div id="result"></div>
+            </div>
+
+            <div class="row" style="padding: 10px; margin-right: 0px; --bs-gutter-x:0rem">
+                <div class="col-2">
+
+                </div>
+                <div class="col-10" style="margin-top: 20px; ">
+                    <h4>Indicadores</h4>
+                    <div class="row" style="background-color: #dcdcdc; border-radius: 5px; padding: 20px;">
+
+                        <div class="col-4" style="padding: 10px;">
+                            <div>
+                                <canvas id="chartU"></canvas>
                             </div>
                         </div>
-                        <div id="divInfoSalon" style="background-color: #dcdcdc; width: 100%; height: 435.2px; display: none; flex-direction: column;
-                                                        padding: 30px; border-radius: 5px;">
-                        
+                        <div class="col-4" style="padding: 10px;">
+                            <div>
+                                <canvas id="chartE"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-4" style="padding: 10px;">
+                            <div>
+                                <canvas id="chartP"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -172,6 +180,11 @@
     </div>
 
     <script>
+
+        var containerVis = document.getElementById('containerVis');
+        var targetEdificio = document.getElementById('divEdificio');
+        var targetPiso = document.getElementById('divPiso');
+        var targetSalon = document.getElementById('divSalon');
 
         var iframeUniversidad = document.getElementById("imagenUniversidad")
         var iframeEdificio = document.getElementById("imagenEdificio");
@@ -198,8 +211,15 @@
                                 
                                 if (edificio.id === nombreEdificio) {
 
+                                document.getElementById('divEdificio').style.display = 'flex';
+
                                 var rutaImg = edificio.rutaImgEdificio;
                                 var nombreCompleto = edificio.nombre;
+
+                                // Destruir el gráfico existente si hay alguno
+                                if (window.chartP instanceof Chart) {
+                                    window.chartP.destroy();
+                                }
 
                                 document.getElementById("nombreEdificio").textContent = nombreCompleto;
                                 document.getElementById("imagenEdificio").src = rutaImg;
@@ -208,6 +228,8 @@
                                 document.getElementById("nombreSalon").textContent = "";
                                 document.getElementById("divNoInfoSalon").style.display = "none";
                                 document.getElementById("divInfoSalon").style.display = "none";
+
+                                targetPiso.style.display = "none";
                                 
                                 document.getElementById("divDatosE").innerHTML='';
                                 document.getElementById("divDatosP").innerHTML='';
@@ -231,31 +253,54 @@
                             console.error("Error al cargar el archivo JSON: " + error);
                         });
 
+                        scrollToElement(targetEdificio);
+
                 }
 
                 else if(mensaje.action === "CargarDatos"){
- 
-                    var totalEstudaintes = mensaje.total;
-                    var divDatosU = document.getElementById("divDatosU");
-                    divDatosU.innerHTML = '';
 
-                    var titulo = document.createElement("h6");
-                    titulo.textContent = "(Toda la u)";
-                    divDatosU.appendChild(titulo);
-                    
-                    var nuevoParrafo = document.createElement("p");
-                    nuevoParrafo.textContent = "Total de estudiantes: " + totalEstudaintes;
-                    divDatosU.appendChild(nuevoParrafo);
+                    var totalEstudiantes = mensaje.total;
+                    var datos = mensaje.value;
 
-                    for (var clave in mensaje.value) {
-                    if (mensaje.value.hasOwnProperty(clave)) {
+                    // Crear etiquetas y datos para el gráfico
+                    var etiquetas = Object.keys(datos);
+                    var valores = Object.values(datos);
 
-                        var porcentaje = ((mensaje.value[clave]/totalEstudaintes)*100).toFixed(1);
-                        var nuevoParrafo = document.createElement("p");
-                        nuevoParrafo.textContent = "" + (clave).toUpperCase() + ': ' + mensaje.value[clave] + ", " + porcentaje + "%";
-                        divDatosU.appendChild(nuevoParrafo);
-                        }
+                    // Calcular porcentajes
+                    var porcentajes = valores.map(function(valor) {
+                        return ((valor / totalEstudiantes) * 100).toFixed(1);
+                    });
+
+                    // Obtener el canvas y el contexto
+                    var ctx = document.getElementById('chartU').getContext('2d');
+
+                    // Destruir el gráfico existente si hay alguno
+                    if (window.chartU instanceof Chart) {
+                        window.chartU.destroy();
                     }
+
+                    // Crear el nuevo gráfico de barras
+                    window.chartU = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: etiquetas,
+                            datasets: [{
+                                label: 'Porcentaje de Estudiantes por Edifico',
+                                data: porcentajes,
+                                backgroundColor: 'rgba(38, 123, 182, 0.5)', // Color de fondo de las barras
+                                borderColor: 'rgba(38, 123, 182, 1)', // Color del borde de las barras
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
                 }
 
 
@@ -282,6 +327,8 @@
                                 
                                 if (piso.id === nombrePiso) {
 
+                                document.getElementById('divPiso').style.display = 'flex';
+
                                 var rutaImg = piso.rutaImgPiso;
                                 var nombreCompleto = piso.nombre
                                 document.getElementById("nombreSalon").textContent = "";
@@ -290,10 +337,6 @@
                                 document.getElementById("divNoInfoSalon").style.display = "none";
                                 document.getElementById("divInfoSalon").style.display = "none";
                                
-                                window.scrollBy({
-                                    top: window.innerHeight,
-                                    behavior: 'smooth'
-                                });
                                 break;
                                 }
                             }
@@ -308,37 +351,56 @@
                         .catch(function(error) {
                             console.error("Error al cargar el archivo JSON: " + error);
                         });
+
+                        scrollToElement(targetPiso);
+                        
+
                 }
                 
                 else if(mensaje.action === "CargarDatos"){
 
-                var nombrePiso = mensaje.value;
- 
-                var totalEstudaintes = mensaje.total;
-                var divDatosE = document.getElementById("divDatosE");
-                divDatosE.innerHTML = '';
+                    var totalEstudiantes = mensaje.total;
+                    var datos = mensaje.value;
 
-                var titulo = document.createElement("h6");
-                titulo.textContent = "(Edificio)";
-                divDatosE.appendChild(titulo);
+                    // Crear etiquetas y datos para el gráfico
+                    var etiquetas = Object.keys(datos);
+                    var valores = Object.values(datos);
 
-                var nuevoParrafo = document.createElement("p");
-                nuevoParrafo.textContent = "Total de estudiantes: " + totalEstudaintes;
+                    // Calcular porcentajes
+                    var porcentajes = valores.map(function(valor) {
+                        return ((valor / totalEstudiantes) * 100).toFixed(1);
+                    });
 
-                divDatosE.appendChild(nuevoParrafo);
+                    // Obtener el canvas y el contexto
+                    var ctx = document.getElementById('chartE').getContext('2d');
 
-                for (var clave in mensaje.value) {
-                if (mensaje.value.hasOwnProperty(clave)) {
-
-                    var porcentaje = ((mensaje.value[clave]/totalEstudaintes)*100).toFixed(1);
-                    var nuevoParrafo = document.createElement("p");
-                    if(porcentaje > 0){
-                        nuevoParrafo.textContent = "" + (clave).toUpperCase() + ': ' + mensaje.value[clave] + ", " + porcentaje + "%";
-                        divDatosE.appendChild(nuevoParrafo);
+                    // Destruir el gráfico existente si hay alguno
+                    if (window.chartE instanceof Chart) {
+                        window.chartE.destroy();
                     }
-                    
-                    }
-                }
+
+                    // Crear el nuevo gráfico de barras
+                    window.chartE = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: etiquetas,
+                            datasets: [{
+                                label: 'Porcentaje de Estudiantes por Piso',
+                                data: porcentajes,
+                                backgroundColor: 'rgba(255, 131, 22, 0.5)', // Color de fondo de las barras
+                                borderColor: 'rgba(255, 131, 22, 1)', // Color del borde de las barras
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
                 }
 
             }
@@ -388,8 +450,6 @@
                         var startTime = new Date(`${currentYear}-${currentMonth}-${currentDay} ${session.startTime}`);
                         var finishTime = new Date(`${currentYear}-${currentMonth}-${currentDay} ${session.finishTime}`);
                         var dayName = session.day.toLowerCase()
-
-                        //console.log((currentTime >= startTime && currentTime <= finishTime) && dayName === currentDayName && session.classroom == nombreSalon);
 
                         if ((currentTime >= startTime && currentTime <= finishTime) && dayName === currentDayName && session.classroom == nombreSalon) {
 
@@ -453,6 +513,9 @@
                             var divInfoSalon = document.getElementById("divInfoSalon").style.display = "none";
                             document.getElementById("divNoInfoSalon").style.display = "flex";
                         }
+                        document.getElementById('divSalon').style.display = 'flex';
+                        scrollToElement(targetSalon);
+
                         });
                     });
                     });
@@ -464,29 +527,48 @@
             
             else if(mensaje.action === "CargarDatos"){
 
-            var totalEstudaintes = mensaje.total;
-            var divDatosP = document.getElementById("divDatosP");
-            divDatosP.innerHTML = '';
-            var titulo = document.createElement("h6");
-                titulo.textContent = "(Piso)";
-                divDatosP.appendChild(titulo);
-            var nuevoParrafo = document.createElement("p");
-            nuevoParrafo.textContent = "Total de estudiantes: " + totalEstudaintes;
+                var totalEstudiantes = mensaje.total;
+                    var datos = mensaje.value;
 
-            divDatosP.appendChild(nuevoParrafo);
+                    // Crear etiquetas y datos para el gráfico
+                    var etiquetas = Object.keys(datos);
+                    var valores = Object.values(datos);
 
-            for (var clave in mensaje.value) {
-            if (mensaje.value.hasOwnProperty(clave)) {
+                    // Calcular porcentajes
+                    var porcentajes = valores.map(function(valor) {
+                        return ((valor / totalEstudiantes) * 100).toFixed(1);
+                    });
 
-                var porcentaje = ((mensaje.value[clave]/totalEstudaintes)*100).toFixed(1);
-                var nuevoParrafo = document.createElement("p");
-                if(porcentaje > 0){
-                    nuevoParrafo.textContent = "" + (clave).toUpperCase() + ': ' + mensaje.value[clave] + ", " + porcentaje + "%";
-                    divDatosP.appendChild(nuevoParrafo);
-                }
-                
-                }
-            }
+                    // Obtener el canvas y el contexto
+                    var ctx = document.getElementById('chartP').getContext('2d');
+
+                    // Destruir el gráfico existente si hay alguno
+                    if (window.chartP instanceof Chart) {
+                        window.chartP.destroy();
+                    }
+
+                    // Crear el nuevo gráfico de barras
+                    window.chartP = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: etiquetas,
+                            datasets: [{
+                                label: 'Porcentaje de Estudiantes por Salon',
+                                data: porcentajes,
+                                backgroundColor: 'rgba(51, 163, 51, 0.5)', // Color de fondo de las barras
+                                borderColor: 'rgba(51, 163, 51, 1)', // Color del borde de las barras
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
             }
                 
             }
@@ -604,6 +686,11 @@
     };
 
     function cargar(){
+        console.log(document.getElementById("nombreSalon").innerText);
+        if(document.getElementById("nombreSalon").innerText != ""){
+            recargarSalon();
+        }
+        //targetSalon.style.display = "none";
         // Obtener el valor del date picker y del slider de la hora
         var fechaPickerValue = document.getElementById('fechaPicker').value;
         var horaSliderValue = document.getElementById('horaSlider').value;
@@ -635,6 +722,121 @@
 
     }
 
+    function recargarSalon(){
+
+                var nombreSalon = document.getElementById("nombreSalon").innerText;
+                console.log(nombreSalon + "   ////////////////////////");
+
+                fetch('../files/ISISclasses.json')
+                .then(response => response.json())
+                .then(data => {
+
+                    const classes = data;
+
+                    var fechaPickerValue = document.getElementById('fechaPicker').value;
+                    var horaSliderValue = document.getElementById('horaSlider').value;
+
+                    // Separar las horas y los minutos
+                    var horas = Math.floor(horaSliderValue);
+                    var minutos = (horaSliderValue - horas) * 60;
+
+                    // Formatear la fecha y la hora
+                    var horaFormateada = ('0' + horas).slice(-2) + ":" + ('0' + minutos).slice(-2);
+                    var fechaFormateada = fechaPickerValue + "T" + horaFormateada + ":00";
+
+                    // Crear un objeto Date a partir de la fecha formateada
+                    var currentTime = new Date(fechaFormateada);
+
+
+                    var currentYear = currentTime.getFullYear();
+                    var currentMonth = currentTime.getMonth() + 1;
+                    var currentDay = currentTime.getDate();
+                    var currentDayName = currentTime.toLocaleString('en-US', { weekday: 'long' }).toLowerCase();
+
+                    let salonEncontrado = false;
+
+                    classes.forEach(course => {
+                    course.sections.forEach(section => {
+                        section.sessions.forEach(session => {
+                        
+                        var startTime = new Date(`${currentYear}-${currentMonth}-${currentDay} ${session.startTime}`);
+                        var finishTime = new Date(`${currentYear}-${currentMonth}-${currentDay} ${session.finishTime}`);
+                        var dayName = session.day.toLowerCase()
+
+                        if ((currentTime >= startTime && currentTime <= finishTime) && dayName === currentDayName && session.classroom == nombreSalon) {
+
+                            salonEncontrado = true;
+
+                            console.log(nombreSalon);
+                            console.log(session.classroom);
+
+                            document.getElementById("divNoInfoSalon").style.display = "none";
+
+
+                            className = course.className;
+                            semester = course.semester;
+                            sectionID = section.sectionID;
+                            availableSeats = section.availableSeats;
+                            enrolled = section.enrolled;
+                            day = session.day;
+                            startTime = session.startTime;
+                            finishTime = session.finishTime;
+
+                            var divInfoSalon = document.getElementById("divInfoSalon");
+                            divInfoSalon.innerHTML = '';
+                            divInfoSalon.style.display = 'flex';
+
+                            var pClase = document.createElement("p");
+                            pClase.textContent = "Clase: " + className;
+                            divInfoSalon.appendChild(pClase);
+
+                            var pSemestre = document.createElement("p");
+                            pSemestre.textContent = "Semestre: " + semester;
+                            divInfoSalon.appendChild(pSemestre);
+
+                            var pSectionID = document.createElement("p");
+                            pSectionID.textContent = "Seccion: " + sectionID;
+                            divInfoSalon.appendChild(pSectionID);
+
+                            var pAvailableSeats = document.createElement("p");
+                            pAvailableSeats.textContent = "Sillas disponibles: " + availableSeats;
+                            divInfoSalon.appendChild(pAvailableSeats);
+
+                            var pEnrolled = document.createElement("p");
+                            pEnrolled.textContent = "Inscritos: " + enrolled;
+                            divInfoSalon.appendChild(pEnrolled);
+
+                            var pDay = document.createElement("p");
+                            pDay.textContent = "Dia: " + day;
+                            divInfoSalon.appendChild(pDay);
+
+                            var pStartTime = document.createElement("p");
+                            pStartTime.textContent = "Hora inicio: " + startTime;
+                            divInfoSalon.appendChild(pStartTime);
+
+                            var pFinishTime = document.createElement("p");
+                            pFinishTime.textContent = "Hora fin: " + finishTime;
+                            divInfoSalon.appendChild(pFinishTime);
+
+                            return;
+
+                        }
+                        if (!salonEncontrado) {
+                            var divInfoSalon = document.getElementById("divInfoSalon").style.display = "none";
+                            document.getElementById("divNoInfoSalon").style.display = "flex";
+                        }
+                        document.getElementById('divSalon').style.display = 'flex';
+                        scrollToElement(targetSalon);
+
+                        });
+                    });
+                    });
+
+                })
+                .catch(error => console.error('Error al leer el archivo:', error));
+
+    }
+
 
     //JUEGOOO PPT/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -660,7 +862,9 @@
         document.getElementById('result').innerText = `Elegiste ${playerChoice}, la computadora eligió ${computerChoice}. ${result}`;
     }
 
-
+    function scrollToElement(element) {
+    element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
 
     </script>
 

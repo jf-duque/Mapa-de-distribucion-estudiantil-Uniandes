@@ -2821,7 +2821,12 @@
             console.log("total de estudiantes: " + totalEstudiantes);
             console.log(numEstudiantesPiso);
 
-            compartirDatos(numEstudiantesPiso, totalEstudiantes);
+            var numEstudiantesPisoFiltrado = Object.fromEntries(
+              Object.entries(numEstudiantesPiso).filter(([_, value]) => value !== 0)
+          );
+
+
+          compartirDatos(numEstudiantesPisoFiltrado, totalEstudiantes);
 
             for (const edificio in numEstudiantesPiso) {
               if(numEstudiantesPiso[edificio] > 0){
